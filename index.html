@@ -362,12 +362,16 @@
             btn.addEventListener('click', function () {
                 
                 if (audio) {
-                    // Gunakan play() dan catch untuk menangani Promise jika autoplay gagal
-                    audio.play().catch(error => {
-                        console.log("Autoplay diblokir, perlu interaksi lain.");
-                        // Opsional: Tampilkan tombol mute/unmute jika autoplay gagal
-                    });
-                }
+                // 1. Set ke muted, ini syarat browser untuk Autoplay
+                audio.muted = true;
+                
+                // 2. Coba play, catch error jika masih diblokir
+                audio.play().then(() => {
+                    console.log("Audio berhasil play (muted).");
+                }).catch(error => {
+                    console.error("Audio play gagal total:", error);
+                });
+            }
 
                 openingPage.style.display = 'none';
                 contentWrapper.classList.remove('content-hidden');
@@ -560,4 +564,5 @@
     })();
 </script>
 </body>
+
 </html>
