@@ -367,7 +367,8 @@
                 
                 // 2. Coba play, catch error jika masih diblokir
                 audio.play().then(() => {
-                    console.log("Audio berhasil play (muted).");
+                    audio.muted = false;
+                    console.log("Audio berhasil play dan Unmuted.");
                 }).catch(error => {
                     console.error("Audio play gagal total:", error);
                 });
@@ -536,8 +537,9 @@
         if (!audio || !controlBtn) return;
 
         // Set status awal
+        controlBtn.innerHTML = '🔊';
         audio.muted = false; // Asumsi mulai tidak di-mute
-        controlBtn.innerHTML = '🔊'; 
+         
 
         controlBtn.addEventListener('click', function() {
             if (audio.muted) {
@@ -566,3 +568,4 @@
 </body>
 
 </html>
+
